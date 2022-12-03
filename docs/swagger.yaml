@@ -1,0 +1,155 @@
+basePath: /api/v1
+definitions:
+  stunting.Stunting:
+    properties:
+      baduta:
+        type: string
+      balita:
+        type: string
+      jambanLayakTidak:
+        type: string
+      kodeKabupaten:
+        type: integer
+      kodeKecamatan:
+        type: integer
+      kodeKelurahan:
+        type: integer
+      kodeProvinsi:
+        type: integer
+      kodeRt:
+        type: string
+      kodeRw:
+        type: string
+      namaKabupaten:
+        type: string
+      namaKecamatan:
+        type: string
+      namaKelurahan:
+        type: string
+      namaKepalaKeluarga:
+        type: string
+      namaProvinsi:
+        type: string
+      nik:
+        type: string
+      periode:
+        type: integer
+      pus:
+        type: string
+      pusHamil:
+        type: string
+      risikoStunting:
+        type: string
+      sumberAirLayakTidak:
+        type: string
+      terlaluBanyak:
+        type: string
+      terlaluDekat:
+        type: string
+      terlaluMuda:
+        type: string
+      terlaluTua:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: dittifdok@bkkbn.go.id
+    name: Direktorat Teknologi Informasi dan Data
+    url: https://bkkbn.go.id
+  description: Digital Service BKKBN for Integration
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://bkkbn.go.id
+  title: BKKBN Digital Service Documentation
+paths:
+  /cekbaduta/{nik}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
+      operationId: get-keluarga-baduta
+      parameters:
+      - description: nik
+        in: path
+        name: nik
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/stunting.Stunting'
+      summary: Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
+      tags:
+      - Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
+  /cekkeluargadetail/{nik}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get List Detil Keluarga
+      operationId: get-stunting
+      parameters:
+      - description: nik
+        in: path
+        name: nik
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/stunting.Stunting'
+      summary: Get List Detil Keluarga
+      tags:
+      - Get List Detil Keluarga
+  /cekpushamil/{nik}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
+      operationId: get-keluarga-pus-hamil
+      parameters:
+      - description: nik
+        in: path
+        name: nik
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/stunting.Stunting'
+      summary: Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
+      tags:
+      - Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
+  /cekresikostunting/{nik}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get List Detil Keluarga yang beresiko Stunting
+      operationId: get-keluarga-resiko-stunting
+      parameters:
+      - description: nik
+        in: path
+        name: nik
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/stunting.Stunting'
+      summary: Get List Detil Keluarga yang beresiko Stunting
+      tags:
+      - Get List Detil Keluarga yang beresiko Stunting
+swagger: "2.0"
