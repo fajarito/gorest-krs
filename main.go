@@ -30,7 +30,7 @@ import (
 // @contact.email  dittifdok@bkkbn.go.id
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-// @host      localhost:8080
+// @host      ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id
 // @BasePath  /api/v1
 func main() {
 	err := godotenv.Load()

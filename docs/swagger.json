@@ -14,7 +14,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "localhost:8080",
+    "host": "ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id",
     "basePath": "/api/v1",
     "paths": {
         "/cekbaduta/{nik}": {

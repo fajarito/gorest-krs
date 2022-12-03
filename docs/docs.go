@@ -242,7 +242,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "",
-	Host:             "localhost:8080",
+	Host:             "ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "BKKBN Digital Service Documentation",
