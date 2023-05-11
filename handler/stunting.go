@@ -46,8 +46,9 @@ func (handler *stuntingHandler) GetStunting(c *gin.Context) {
 	stuntingResponse := convertToStuntingResponse(fa)
 
 	c.JSON(200, gin.H{
-		"Status": "Data Ditemukan",
-		"data":   stuntingResponse,
+		"Status":  "Success",
+		"Message": "Data Ditemukan",
+		"data":    stuntingResponse,
 	})
 }
 
@@ -76,8 +77,9 @@ func (handler *stuntingHandler) GetKeluargaPusHamil(c *gin.Context) {
 	stuntingResponse := convertToStuntingResponse(fa)
 
 	c.JSON(200, gin.H{
-		"Status": "Data Keluarga (Memiliki PUS Hamil) Ditemukan",
-		"data":   stuntingResponse,
+		"Status":  "Success",
+		"Message": "Data Keluarga (Memiliki PUS Hamil) Ditemukan",
+		"data":    stuntingResponse,
 	})
 }
 
@@ -106,8 +108,9 @@ func (handler *stuntingHandler) GetKeluargaResikoStunting(c *gin.Context) {
 	stuntingResponse := convertToStuntingResponse(fa)
 
 	c.JSON(200, gin.H{
-		"Status": "Data Keluarga Beresiko Stunting Ditemukan",
-		"data":   stuntingResponse,
+		"Status":  "Success",
+		"Message": "Data Keluarga Beresiko Stunting Ditemukan",
+		"data":    stuntingResponse,
 	})
 }
 
@@ -136,8 +139,9 @@ func (handler *stuntingHandler) GetKeluargaBaduta(c *gin.Context) {
 	stuntingResponse := convertToStuntingResponse(fa)
 
 	c.JSON(200, gin.H{
-		"Status": "Data Keluarga Beresiko Stunting Ditemukan",
-		"data":   stuntingResponse,
+		"Status":  "Success",
+		"Message": "Data Keluarga Beresiko Stunting Ditemukan",
+		"data":    stuntingResponse,
 	})
 }
 
