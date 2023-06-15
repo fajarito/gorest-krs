@@ -34,7 +34,7 @@ import (
 // @contact.email  dittifdok@bkkbn.go.id
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-// @host      localhost:8081
+// @host      gorest-2022-krs-ds-bkkbn-2022-gorest-krs.apps.ocp-dev.bkkbn.go.id
 // @BasePath  /v1/api
 func main() {
 	err := godotenv.Load()
