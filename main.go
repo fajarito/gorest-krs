@@ -26,7 +26,7 @@ import (
 
 // swagger embed files
 // @title BKKBN Digital Service - Rekapitulasi Keluarga Beresiko Stunting
-// / @version         2.0
+// @version         2.1
 // @description     Digital Service BKKBN for Integration
 // @termsOfService  https://bkkbn.go.id
 // @contact.name   Direktorat Teknologi Informasi dan Data

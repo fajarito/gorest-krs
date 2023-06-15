@@ -212,6 +212,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://bkkbn.go.id
   title: BKKBN Digital Service - Rekapitulasi Keluarga Beresiko Stunting
+  version: "2.1"
 paths:
   /krsbykab:
     get:
