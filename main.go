@@ -2,14 +2,18 @@ package main
 
 import (
 	"fmt"
-	"gorest-pk/handler"
-	"gorest-pk/stunting"
+	"gorest-krs/handler"
+	krk "gorest-krs/krk_kab"
+	krs "gorest-krs/krs_kec"
+	krs_nas "gorest-krs/krs_nas"
+	krs_prov "gorest-krs/krs_prov"
 	"log"
 	"os"
 
 	"github.com/gin-contrib/cors"
+	pagination "github.com/webstradev/gin-pagination"
 
-	_ "gorest-pk/docs"
+	_ "gorest-krs/docs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -21,8 +25,8 @@ import (
 )
 
 // swagger embed files
-// @title BKKBN Digital Service Documentation
-/// @version         1.0
+// @title BKKBN Digital Service - Rekapitulasi Keluarga Beresiko Stunting
+// / @version         2.0
 // @description     Digital Service BKKBN for Integration
 // @termsOfService  https://bkkbn.go.id
 // @contact.name   Direktorat Teknologi Informasi dan Data
@@ -30,8 +34,8 @@ import (
 // @contact.email  dittifdok@bkkbn.go.id
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-// @host      ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id
-// @BasePath  /api/v1
+// @host      localhost:8081
+// @BasePath  /v1/api
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -57,15 +61,24 @@ func main() {
 		log.Fatal("DB Connection Error")
 	}
 
-	stuntingRepository := stunting.NewRepository(db)
-	stuntingService := stunting.NewService(stuntingRepository)
-	stuntingHandler := handler.NewStuntingHandler(stuntingService)
+	krsRepository := krs.NewRepository(db)
+	krsService := krs.NewService(krsRepository)
+	krsHandler := handler.NewKrsHandler(krsService)
+	krsProvRepository := krs_prov.NewRepository(db)
+	krsProvService := krs_prov.NewService(krsProvRepository)
+	krsProvHandler := handler.NewKrsProvHandler(krsProvService)
+	krsNasRepository := krs_nas.NewRepository(db)
+	krsNasService := krs_nas.NewService(krsNasRepository)
+	krsNasHandler := handler.NewKrsNasHandler(krsNasService)
+	krkRepository := krk.NewRepository(db)
+	krkService := krk.NewService(krkRepository)
+
+	krkHandler := handler.NewKrkHandler(krkService)
 
 	fmt.Println("==================v3==================v3==================v3==================v")
 
 	r := gin.Default()
 
-	v1 := r.Group("/v1")
 	corsConfig := cors.DefaultConfig()
 
 	// corsConfig.AllowOrigins = []string{"https://example.com"}
@@ -79,21 +92,13 @@ func main() {
 	// Register the middleware
 	r.Use(cors.New(corsConfig))
 
-	v1.GET("/ping", stuntingHandler.PingHandler)
+	r.Use(pagination.Default())
 
-	v1.GET("/who", stuntingHandler.WhoHandler)
-
-	v1.GET("/stunting/:id/:title", stuntingHandler.StuntingHandler)
-
-	v1.GET("query", stuntingHandler.QueryHandler)
-
-	v1.POST("/poststunting", stuntingHandler.PostfaskesHandler)
-
-	v2 := r.Group("/api/v1")
-	v2.GET("/cekkeluargadetail/:id", stuntingHandler.GetStunting)
-	v2.GET("/cekresikostunting/:id", stuntingHandler.GetKeluargaResikoStunting)
-	v2.GET("/cekpushamil/:id", stuntingHandler.GetKeluargaPusHamil)
-	v2.GET("/cekbaduta/:id", stuntingHandler.GetKeluargaBaduta)
+	v3 := r.Group("/v1/api")
+	v3.GET("/krsbykec", krsHandler.GetKrsByKec)
+	v3.GET("/krsbykab", krkHandler.GetKrkByKab)
+	v3.GET("/krsbyprov", krsProvHandler.GetKrsByProv)
+	v3.GET("/krsbynas", krsNasHandler.GetKrsByNas)
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8080")
+	r.Run(":8081")
 }

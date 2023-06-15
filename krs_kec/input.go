@@ -1,8 +1,8 @@
-package stunting
+package krs_kec
 
 import "encoding/json"
 
-type StuntingInput struct {
+type KrsInput struct {
 	Nama   string      `json:"nama" binding:"required"`
 	Kode   json.Number `json:"kode" binding:"required,number"`
 	Alamat string      `json:"alamat" binding:"required"`

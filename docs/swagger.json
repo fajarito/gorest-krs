@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Digital Service BKKBN for Integration",
-        "title": "BKKBN Digital Service Documentation",
+        "title": "BKKBN Digital Service - Rekapitulasi Keluarga Beresiko Stunting",
         "termsOfService": "https://bkkbn.go.id",
         "contact": {
             "name": "Direktorat Teknologi Informasi dan Data",
@@ -14,12 +14,12 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id",
-    "basePath": "/api/v1",
+    "host": "localhost:8081",
+    "basePath": "/v1/api",
     "paths": {
-        "/cekbaduta/{nik}": {
+        "/krsbykab": {
             "get": {
-                "description": "Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)",
+                "description": "Get Aggregate Keluarga Beresiko Stunting By Kecamatan",
                 "consumes": [
                     "*/*"
                 ],
@@ -27,16 +27,23 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)"
+                    "Get Aggregate Keluarga Beresiko Stunting By Kecamatan"
                 ],
-                "summary": "Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)",
-                "operationId": "get-keluarga-baduta",
+                "summary": "Get Aggregate Keluarga Beresiko Stunting By Kecamatan",
+                "operationId": "get-krs-by-kec",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "nik",
-                        "name": "nik",
-                        "in": "path",
+                        "description": "Province Code",
+                        "name": "kdprov",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Kabupaten Code",
+                        "name": "kdkab",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -44,15 +51,15 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stunting.Stunting"
+                            "$ref": "#/definitions/krk_kab.Krk"
                         }
                     }
                 }
             }
         },
-        "/cekkeluargadetail/{nik}": {
+        "/krsbykec": {
             "get": {
-                "description": "Get List Detil Keluarga",
+                "description": "Get Aggregate Keluarga Beresiko Stunting By Kelurahan",
                 "consumes": [
                     "*/*"
                 ],
@@ -60,16 +67,30 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Get List Detil Keluarga"
+                    "Get Aggregate Keluarga Beresiko Stunting By Kelurahan"
                 ],
-                "summary": "Get List Detil Keluarga",
-                "operationId": "get-stunting",
+                "summary": "Get Aggregate Keluarga Beresiko Stunting By Kelurahan",
+                "operationId": "get-krs-by-kelurahan",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "nik",
-                        "name": "nik",
-                        "in": "path",
+                        "description": "Province Code",
+                        "name": "kdprov",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Kabupaten Code",
+                        "name": "kdkab",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Kecamatan Code",
+                        "name": "kdkec",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -77,15 +98,15 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stunting.Stunting"
+                            "$ref": "#/definitions/krs_kec.Krs"
                         }
                     }
                 }
             }
         },
-        "/cekpushamil/{nik}": {
+        "/krsbynas": {
             "get": {
-                "description": "Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil",
+                "description": "Get Aggregate Keluarga Beresiko Stunting By Province",
                 "consumes": [
                     "*/*"
                 ],
@@ -93,32 +114,23 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil"
+                    "Get Aggregate Keluarga Beresiko Stunting By Province"
                 ],
-                "summary": "Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil",
-                "operationId": "get-keluarga-pus-hamil",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "nik",
-                        "name": "nik",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
+                "summary": "Get Aggregate Keluarga Beresiko Stunting By Province",
+                "operationId": "get-krs-by-prov",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stunting.Stunting"
+                            "$ref": "#/definitions/krs_nas.KrsNas"
                         }
                     }
                 }
             }
         },
-        "/cekresikostunting/{nik}": {
+        "/krsbyprov": {
             "get": {
-                "description": "Get List Detil Keluarga yang beresiko Stunting",
+                "description": "Get Aggregate Keluarga Beresiko Stunting By Kabupaten",
                 "consumes": [
                     "*/*"
                 ],
@@ -126,16 +138,16 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Get List Detil Keluarga yang beresiko Stunting"
+                    "Get Aggregate Keluarga Beresiko Stunting By Kabupaten"
                 ],
-                "summary": "Get List Detil Keluarga yang beresiko Stunting",
-                "operationId": "get-keluarga-resiko-stunting",
+                "summary": "Get Aggregate Keluarga Beresiko Stunting By Kabupaten",
+                "operationId": "get-krs-by-kab",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "nik",
-                        "name": "nik",
-                        "in": "path",
+                        "description": "Province Code",
+                        "name": "kdprov",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -143,7 +155,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/stunting.Stunting"
+                            "$ref": "#/definitions/krs_prov.KrsProv"
                         }
                     }
                 }
@@ -151,34 +163,144 @@
         }
     },
     "definitions": {
-        "stunting.Stunting": {
+        "krk_kab.Krk": {
             "type": "object",
             "properties": {
-                "baduta": {
-                    "type": "string"
+                "idKabupaten": {
+                    "type": "integer"
                 },
-                "balita": {
-                    "type": "string"
+                "idKecamatan": {
+                    "type": "integer"
                 },
-                "jambanLayakTidak": {
-                    "type": "string"
+                "idProvinsi": {
+                    "type": "integer"
+                },
+                "jumlahAirTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahBaduta": {
+                    "type": "integer"
+                },
+                "jumlahBalita": {
+                    "type": "integer"
+                },
+                "jumlahBukanPesertaKbModern": {
+                    "type": "integer"
+                },
+                "jumlahJambanTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahKeluarga": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaSasaran": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaTidakBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahPus": {
+                    "type": "integer"
+                },
+                "jumlahPusHamil": {
+                    "type": "integer"
                 },
                 "kodeKabupaten": {
-                    "type": "integer"
-                },
-                "kodeKecamatan": {
-                    "type": "integer"
-                },
-                "kodeKelurahan": {
-                    "type": "integer"
-                },
-                "kodeProvinsi": {
-                    "type": "integer"
-                },
-                "kodeRt": {
                     "type": "string"
                 },
-                "kodeRw": {
+                "kodeKecamatan": {
+                    "type": "string"
+                },
+                "kodeProvinsi": {
+                    "type": "string"
+                },
+                "namaKabupaten": {
+                    "type": "string"
+                },
+                "namaKecamatan": {
+                    "type": "string"
+                },
+                "namaProvinsi": {
+                    "type": "string"
+                },
+                "peringkatKesejahteraanDiatas4": {
+                    "type": "integer"
+                },
+                "prioritas1": {
+                    "type": "integer"
+                },
+                "prioritas2": {
+                    "type": "integer"
+                },
+                "prioritas3": {
+                    "type": "integer"
+                },
+                "prioritas4": {
+                    "type": "integer"
+                }
+            }
+        },
+        "krs_kec.Krs": {
+            "type": "object",
+            "properties": {
+                "idKabupaten": {
+                    "type": "integer"
+                },
+                "idKecamatan": {
+                    "type": "integer"
+                },
+                "idKelurahan": {
+                    "type": "integer"
+                },
+                "idProvinsi": {
+                    "type": "integer"
+                },
+                "jumlahAirTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahBaduta": {
+                    "type": "integer"
+                },
+                "jumlahBalita": {
+                    "type": "integer"
+                },
+                "jumlahBukanPesertaKbModern": {
+                    "type": "integer"
+                },
+                "jumlahJambanTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahKeluarga": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaSasaran": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaTidakBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahPus": {
+                    "type": "integer"
+                },
+                "jumlahPusHamil": {
+                    "type": "integer"
+                },
+                "kodeKabupaten": {
+                    "type": "string"
+                },
+                "kodeKecamatan": {
+                    "type": "string"
+                },
+                "kodeKelurahan": {
+                    "type": "string"
+                },
+                "kodeProvinsi": {
                     "type": "string"
                 },
                 "namaKabupaten": {
@@ -190,41 +312,156 @@
                 "namaKelurahan": {
                     "type": "string"
                 },
-                "namaKepalaKeluarga": {
+                "namaProvinsi": {
+                    "type": "string"
+                },
+                "peringkatKesejahteraanDiatas4": {
+                    "type": "integer"
+                },
+                "prioritas1": {
+                    "type": "integer"
+                },
+                "prioritas2": {
+                    "type": "integer"
+                },
+                "prioritas3": {
+                    "type": "integer"
+                },
+                "prioritas4": {
+                    "type": "integer"
+                }
+            }
+        },
+        "krs_nas.KrsNas": {
+            "type": "object",
+            "properties": {
+                "idProvinsi": {
+                    "type": "integer"
+                },
+                "jumlahAirTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahBaduta": {
+                    "type": "integer"
+                },
+                "jumlahBalita": {
+                    "type": "integer"
+                },
+                "jumlahBukanPesertaKbModern": {
+                    "type": "integer"
+                },
+                "jumlahJambanTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahKeluarga": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaSasaran": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaTidakBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahPus": {
+                    "type": "integer"
+                },
+                "jumlahPusHamil": {
+                    "type": "integer"
+                },
+                "kodeProvinsi": {
                     "type": "string"
                 },
                 "namaProvinsi": {
                     "type": "string"
                 },
-                "nik": {
-                    "type": "string"
-                },
-                "periode": {
+                "peringkatKesejahteraanDiatas4": {
                     "type": "integer"
                 },
-                "pus": {
+                "prioritas1": {
+                    "type": "integer"
+                },
+                "prioritas2": {
+                    "type": "integer"
+                },
+                "prioritas3": {
+                    "type": "integer"
+                },
+                "prioritas4": {
+                    "type": "integer"
+                }
+            }
+        },
+        "krs_prov.KrsProv": {
+            "type": "object",
+            "properties": {
+                "idKabupaten": {
+                    "type": "integer"
+                },
+                "idProvinsi": {
+                    "type": "integer"
+                },
+                "jumlahAirTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahBaduta": {
+                    "type": "integer"
+                },
+                "jumlahBalita": {
+                    "type": "integer"
+                },
+                "jumlahBukanPesertaKbModern": {
+                    "type": "integer"
+                },
+                "jumlahJambanTidakLayak": {
+                    "type": "integer"
+                },
+                "jumlahKeluarga": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaSasaran": {
+                    "type": "integer"
+                },
+                "jumlahKeluargaTidakBeresikoStunting": {
+                    "type": "integer"
+                },
+                "jumlahPus": {
+                    "type": "integer"
+                },
+                "jumlahPusHamil": {
+                    "type": "integer"
+                },
+                "kodeKabupaten": {
                     "type": "string"
                 },
-                "pusHamil": {
+                "kodeProvinsi": {
                     "type": "string"
                 },
-                "risikoStunting": {
+                "namaKabupaten": {
                     "type": "string"
                 },
-                "sumberAirLayakTidak": {
+                "namaProvinsi": {
                     "type": "string"
                 },
-                "terlaluBanyak": {
-                    "type": "string"
+                "peringkatKesejahteraanDiatas4": {
+                    "type": "integer"
                 },
-                "terlaluDekat": {
-                    "type": "string"
+                "prioritas1": {
+                    "type": "integer"
                 },
-                "terlaluMuda": {
-                    "type": "string"
+                "prioritas2": {
+                    "type": "integer"
                 },
-                "terlaluTua": {
-                    "type": "string"
+                "prioritas3": {
+                    "type": "integer"
+                },
+                "prioritas4": {
+                    "type": "integer"
                 }
             }
         }

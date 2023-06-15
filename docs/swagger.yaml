@@ -1,24 +1,97 @@
-basePath: /api/v1
+basePath: /v1/api
 definitions:
-  stunting.Stunting:
+  krk_kab.Krk:
     properties:
-      baduta:
-        type: string
-      balita:
-        type: string
-      jambanLayakTidak:
-        type: string
+      idKabupaten:
+        type: integer
+      idKecamatan:
+        type: integer
+      idProvinsi:
+        type: integer
+      jumlahAirTidakLayak:
+        type: integer
+      jumlahBaduta:
+        type: integer
+      jumlahBalita:
+        type: integer
+      jumlahBukanPesertaKbModern:
+        type: integer
+      jumlahJambanTidakLayak:
+        type: integer
+      jumlahKeluarga:
+        type: integer
+      jumlahKeluargaBeresikoStunting:
+        type: integer
+      jumlahKeluargaSasaran:
+        type: integer
+      jumlahKeluargaTidakBeresikoStunting:
+        type: integer
+      jumlahPus:
+        type: integer
+      jumlahPusHamil:
+        type: integer
       kodeKabupaten:
-        type: integer
-      kodeKecamatan:
-        type: integer
-      kodeKelurahan:
-        type: integer
-      kodeProvinsi:
-        type: integer
-      kodeRt:
         type: string
-      kodeRw:
+      kodeKecamatan:
+        type: string
+      kodeProvinsi:
+        type: string
+      namaKabupaten:
+        type: string
+      namaKecamatan:
+        type: string
+      namaProvinsi:
+        type: string
+      peringkatKesejahteraanDiatas4:
+        type: integer
+      prioritas1:
+        type: integer
+      prioritas2:
+        type: integer
+      prioritas3:
+        type: integer
+      prioritas4:
+        type: integer
+    type: object
+  krs_kec.Krs:
+    properties:
+      idKabupaten:
+        type: integer
+      idKecamatan:
+        type: integer
+      idKelurahan:
+        type: integer
+      idProvinsi:
+        type: integer
+      jumlahAirTidakLayak:
+        type: integer
+      jumlahBaduta:
+        type: integer
+      jumlahBalita:
+        type: integer
+      jumlahBukanPesertaKbModern:
+        type: integer
+      jumlahJambanTidakLayak:
+        type: integer
+      jumlahKeluarga:
+        type: integer
+      jumlahKeluargaBeresikoStunting:
+        type: integer
+      jumlahKeluargaSasaran:
+        type: integer
+      jumlahKeluargaTidakBeresikoStunting:
+        type: integer
+      jumlahPus:
+        type: integer
+      jumlahPusHamil:
+        type: integer
+      kodeKabupaten:
+        type: string
+      kodeKecamatan:
+        type: string
+      kodeKelurahan:
+        type: string
+      kodeProvinsi:
         type: string
       namaKabupaten:
         type: string
@@ -26,32 +99,108 @@ definitions:
         type: string
       namaKelurahan:
         type: string
-      namaKepalaKeluarga:
+      namaProvinsi:
+        type: string
+      peringkatKesejahteraanDiatas4:
+        type: integer
+      prioritas1:
+        type: integer
+      prioritas2:
+        type: integer
+      prioritas3:
+        type: integer
+      prioritas4:
+        type: integer
+    type: object
+  krs_nas.KrsNas:
+    properties:
+      idProvinsi:
+        type: integer
+      jumlahAirTidakLayak:
+        type: integer
+      jumlahBaduta:
+        type: integer
+      jumlahBalita:
+        type: integer
+      jumlahBukanPesertaKbModern:
+        type: integer
+      jumlahJambanTidakLayak:
+        type: integer
+      jumlahKeluarga:
+        type: integer
+      jumlahKeluargaBeresikoStunting:
+        type: integer
+      jumlahKeluargaSasaran:
+        type: integer
+      jumlahKeluargaTidakBeresikoStunting:
+        type: integer
+      jumlahPus:
+        type: integer
+      jumlahPusHamil:
+        type: integer
+      kodeProvinsi:
         type: string
       namaProvinsi:
         type: string
-      nik:
-        type: string
-      periode:
+      peringkatKesejahteraanDiatas4:
         type: integer
-      pus:
-        type: string
-      pusHamil:
-        type: string
-      risikoStunting:
-        type: string
-      sumberAirLayakTidak:
-        type: string
-      terlaluBanyak:
-        type: string
-      terlaluDekat:
-        type: string
-      terlaluMuda:
-        type: string
-      terlaluTua:
-        type: string
+      prioritas1:
+        type: integer
+      prioritas2:
+        type: integer
+      prioritas3:
+        type: integer
+      prioritas4:
+        type: integer
     type: object
-host: ds-bkkbn-p-app-ds-bkkbn-pk.apps.ocp-dev.bkkbn.go.id
+  krs_prov.KrsProv:
+    properties:
+      idKabupaten:
+        type: integer
+      idProvinsi:
+        type: integer
+      jumlahAirTidakLayak:
+        type: integer
+      jumlahBaduta:
+        type: integer
+      jumlahBalita:
+        type: integer
+      jumlahBukanPesertaKbModern:
+        type: integer
+      jumlahJambanTidakLayak:
+        type: integer
+      jumlahKeluarga:
+        type: integer
+      jumlahKeluargaBeresikoStunting:
+        type: integer
+      jumlahKeluargaSasaran:
+        type: integer
+      jumlahKeluargaTidakBeresikoStunting:
+        type: integer
+      jumlahPus:
+        type: integer
+      jumlahPusHamil:
+        type: integer
+      kodeKabupaten:
+        type: string
+      kodeProvinsi:
+        type: string
+      namaKabupaten:
+        type: string
+      namaProvinsi:
+        type: string
+      peringkatKesejahteraanDiatas4:
+        type: integer
+      prioritas1:
+        type: integer
+      prioritas2:
+        type: integer
+      prioritas3:
+        type: integer
+      prioritas4:
+        type: integer
+    type: object
+host: localhost:8081
 info:
   contact:
     email: dittifdok@bkkbn.go.id
@@ -62,18 +211,23 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://bkkbn.go.id
-  title: BKKBN Digital Service Documentation
+  title: BKKBN Digital Service - Rekapitulasi Keluarga Beresiko Stunting
 paths:
-  /cekbaduta/{nik}:
+  /krsbykab:
     get:
       consumes:
       - '*/*'
-      description: Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
-      operationId: get-keluarga-baduta
+      description: Get Aggregate Keluarga Beresiko Stunting By Kecamatan
+      operationId: get-krs-by-kec
       parameters:
-      - description: nik
-        in: path
-        name: nik
+      - description: Province Code
+        in: query
+        name: kdprov
+        required: true
+        type: string
+      - description: Kabupaten Code
+        in: query
+        name: kdkab
         required: true
         type: string
       produces:
@@ -82,20 +236,30 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/stunting.Stunting'
-      summary: Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
+            $ref: '#/definitions/krk_kab.Krk'
+      summary: Get Aggregate Keluarga Beresiko Stunting By Kecamatan
       tags:
-      - Get List Detil Keluarga yang memiliki Baduta (Bayi Usia 2 Tahun)
-  /cekkeluargadetail/{nik}:
+      - Get Aggregate Keluarga Beresiko Stunting By Kecamatan
+  /krsbykec:
     get:
       consumes:
       - '*/*'
-      description: Get List Detil Keluarga
-      operationId: get-stunting
+      description: Get Aggregate Keluarga Beresiko Stunting By Kelurahan
+      operationId: get-krs-by-kelurahan
       parameters:
-      - description: nik
-        in: path
-        name: nik
+      - description: Province Code
+        in: query
+        name: kdprov
+        required: true
+        type: string
+      - description: Kabupaten Code
+        in: query
+        name: kdkab
+        required: true
+        type: string
+      - description: Kecamatan Code
+        in: query
+        name: kdkec
         required: true
         type: string
       produces:
@@ -104,20 +268,36 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/stunting.Stunting'
-      summary: Get List Detil Keluarga
+            $ref: '#/definitions/krs_kec.Krs'
+      summary: Get Aggregate Keluarga Beresiko Stunting By Kelurahan
       tags:
-      - Get List Detil Keluarga
-  /cekpushamil/{nik}:
+      - Get Aggregate Keluarga Beresiko Stunting By Kelurahan
+  /krsbynas:
     get:
       consumes:
       - '*/*'
-      description: Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
-      operationId: get-keluarga-pus-hamil
+      description: Get Aggregate Keluarga Beresiko Stunting By Province
+      operationId: get-krs-by-prov
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/krs_nas.KrsNas'
+      summary: Get Aggregate Keluarga Beresiko Stunting By Province
+      tags:
+      - Get Aggregate Keluarga Beresiko Stunting By Province
+  /krsbyprov:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Aggregate Keluarga Beresiko Stunting By Kabupaten
+      operationId: get-krs-by-kab
       parameters:
-      - description: nik
-        in: path
-        name: nik
+      - description: Province Code
+        in: query
+        name: kdprov
         required: true
         type: string
       produces:
@@ -126,30 +306,8 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/stunting.Stunting'
-      summary: Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
+            $ref: '#/definitions/krs_prov.KrsProv'
+      summary: Get Aggregate Keluarga Beresiko Stunting By Kabupaten
       tags:
-      - Get List Detil Keluarga (PUS) yang sedang dalam kondisi Hamil
-  /cekresikostunting/{nik}:
-    get:
-      consumes:
-      - '*/*'
-      description: Get List Detil Keluarga yang beresiko Stunting
-      operationId: get-keluarga-resiko-stunting
-      parameters:
-      - description: nik
-        in: path
-        name: nik
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/stunting.Stunting'
-      summary: Get List Detil Keluarga yang beresiko Stunting
-      tags:
-      - Get List Detil Keluarga yang beresiko Stunting
+      - Get Aggregate Keluarga Beresiko Stunting By Kabupaten
 swagger: "2.0"
