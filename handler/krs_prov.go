@@ -55,6 +55,33 @@ func (handler *krsProvHandler) GetKrsByProv(c *gin.Context) {
 	})
 }
 
+func (handler *krsProvHandler) GetKrsByKabDetail(c *gin.Context) {
+	// kodeProvinsi := c.Param("idprov")
+	kodeProvinsi := c.Query("kdprov")
+	kodeKabupaten := c.Query("kdkab")
+	// id := c.Param("id")
+	// idprov, _ := strconv.Atoi(idProvString)
+
+	krsKabDetails, err := handler.krsProvService.KrsByKabDetail(kodeProvinsi, kodeKabupaten)
+	// fa, err := handler.faskesService.FindByProv(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"errors message": err})
+		return
+	}
+
+	var krsProvsResponse []krs_prov.KrsProvResponse
+
+	for _, f := range krsKabDetails {
+		krsProvResponse := convertToKrsProvsResponse(f)
+		krsProvsResponse = append(krsProvsResponse, krsProvResponse)
+	}
+
+	c.JSON(200, gin.H{
+		"data": krsProvsResponse,
+	})
+}
+
 func convertToKrsProvsResponse(f krs_prov.KrsProv) krs_prov.KrsProvResponse {
 	return krs_prov.KrsProvResponse{
 

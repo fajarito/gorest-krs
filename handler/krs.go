@@ -67,6 +67,45 @@ func (handler *krsHandler) GetKrsByKec(c *gin.Context) {
 	})
 }
 
+func (handler *krsHandler) GetKrsByKelDetail(c *gin.Context) {
+	// kodeProvinsi := c.Param("idprov")
+	kodeProvinsi := c.Query("kdprov")
+	// id := c.Param("id")
+	// idprov, _ := strconv.Atoi(idProvString)
+
+	// kodeKabupaten := c.Param("idkab")
+	kodeKabupaten := c.Query("kdkab")
+	// id := c.Param("id")
+	// idkab, _ := strconv.Atoi(idKabString)
+
+	// kodeKecamatan := c.Param("idkec")
+	kodeKecamatan := c.Query("kdkec")
+	// id := c.Param("id")
+	// idkec, _ := strconv.Atoi(idKecString)
+	kodeKelurahan := c.Query("kdkel")
+	// id := c.Param("id")
+	// idkec, _ := strconv.Atoi(idKecString)
+
+	krses, err := handler.krsService.KrsByKelDetail(kodeProvinsi, kodeKabupaten, kodeKecamatan, kodeKelurahan)
+	// fa, err := handler.faskesService.FindByProv(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"errors message": err})
+		return
+	}
+
+	var krsesResponse []krs_kec.KrsResponse
+
+	for _, f := range krses {
+		krsResponse := convertToKrsResponse(f)
+		krsesResponse = append(krsesResponse, krsResponse)
+	}
+
+	c.JSON(200, gin.H{
+		"data": krsesResponse,
+	})
+}
+
 func convertToKrsResponse(f krs_kec.Krs) krs_kec.KrsResponse {
 	return krs_kec.KrsResponse{
 

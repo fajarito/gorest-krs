@@ -11,6 +11,7 @@ type Repository interface {
 	// FindByBaduta(nik string) (Stunting, error)
 
 	KrsByProv(KodeDepdagriProvinsi string) ([]KrsProv, error)
+	KrsByKabDetail(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string) ([]KrsProv, error)
 	// FindByKec(ProvinsiID int, KabupatenID int, KecamatanID int) ([]Krs, error)
 }
 
@@ -26,5 +27,12 @@ func (r *repository) KrsByProv(KodeDepdagriProvinsi string) ([]KrsProv, error) {
 	var krsprovs []KrsProv
 	// err := r.db.Find(&faskeses, ProvinsiID).Error
 	err := r.db.Where("\"kode_depdagri_provinsi\" = ?  ", KodeDepdagriProvinsi).Find(&krsprovs).Error
+	return krsprovs, err
+}
+
+func (r *repository) KrsByKabDetail(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string) ([]KrsProv, error) {
+	var krsprovs []KrsProv
+	// err := r.db.Find(&faskeses, ProvinsiID).Error
+	err := r.db.Where("kode_depdagri_provinsi = ? AND kode_depdagri_kabupaten = ? ", KodeDepdagriProvinsi, KodeDepdagriKabupaten).Find(&krsprovs).Error
 	return krsprovs, err
 }

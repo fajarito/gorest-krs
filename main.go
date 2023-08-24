@@ -95,9 +95,13 @@ func main() {
 	r.Use(pagination.Default())
 
 	v3 := r.Group("/v1/api")
+	v3.GET("/krsbykeldetail", krsHandler.GetKrsByKelDetail)
 	v3.GET("/krsbykec", krsHandler.GetKrsByKec)
+	v3.GET("/krsbykecdetail", krkHandler.GetKrkByKecDetail)
 	v3.GET("/krsbykab", krkHandler.GetKrkByKab)
+	v3.GET("/krsbykabdetail", krsProvHandler.GetKrsByKabDetail)
 	v3.GET("/krsbyprov", krsProvHandler.GetKrsByProv)
+	v3.GET("/krsbyprovdetail", krsNasHandler.GetKrsByProvDetail)
 	v3.GET("/krsbynas", krsNasHandler.GetKrsByNas)
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Run(":8081")

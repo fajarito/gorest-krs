@@ -11,6 +11,7 @@ type Repository interface {
 	// FindByBaduta(nik string) (Stunting, error)
 	//KrsByKec(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string, KodeDepdagriKecamatan string) ([]Krk, error)
 	KrkByKab(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string, page int, pageSize int) ([]Krk, error)
+	KrkByKecDetail(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string, KodeDepdagriKecamatan string) ([]Krk, error)
 	GetTotalKrkCount(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string) (int64, error)
 	// FindByKec(ProvinsiID int, KabupatenID int, KecamatanID int) ([]Krs, error)
 }
@@ -29,6 +30,20 @@ func (r *repository) KrkByKab(KodeDepdagriProvinsi string, KodeDepdagriKabupaten
 	// err := r.db.Find(&faskeses, ProvinsiID).Error
 	offset := (page - 1) * pageSize
 	err := r.db.Where("kode_depdagri_provinsi = ? AND kode_depdagri_kabupaten = ? ", KodeDepdagriProvinsi, KodeDepdagriKabupaten).Offset(offset).Limit(pageSize).Find(&krkes).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return krkes, err
+}
+
+func (r *repository) KrkByKecDetail(KodeDepdagriProvinsi string, KodeDepdagriKabupaten string, KodeDepdagriKecamatan string) ([]Krk, error) {
+	var krkes []Krk
+
+	// err := r.db.Find(&faskeses, ProvinsiID).Error
+	// offset := (page - 1) * pageSize
+	err := r.db.Where("kode_depdagri_provinsi = ? AND kode_depdagri_kabupaten = ? AND kode_depdagri_kecamatan = ? ", KodeDepdagriProvinsi, KodeDepdagriKabupaten, KodeDepdagriKecamatan).Find(&krkes).Error
 
 	if err != nil {
 		return nil, err

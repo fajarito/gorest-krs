@@ -11,6 +11,7 @@ type Repository interface {
 	// FindByBaduta(nik string) (Stunting, error)
 
 	KrsByNas() ([]KrsNas, error)
+	KrsByProvDetail(KodeDepdagriProvinsi string) ([]KrsNas, error)
 	// FindByKec(ProvinsiID int, KabupatenID int, KecamatanID int) ([]Krs, error)
 }
 
@@ -27,4 +28,11 @@ func (r *repository) KrsByNas() ([]KrsNas, error) {
 	// err := r.db.Find(&faskeses, ProvinsiID).Error
 	err := r.db.Find(&krsnases).Error
 	return krsnases, err
+}
+
+func (r *repository) KrsByProvDetail(KodeDepdagriProvinsi string) ([]KrsNas, error) {
+	var krsprovs []KrsNas
+	// err := r.db.Find(&faskeses, ProvinsiID).Error
+	err := r.db.Where("\"kode_depdagri_provinsi\" = ?  ", KodeDepdagriProvinsi).Find(&krsprovs).Error
+	return krsprovs, err
 }

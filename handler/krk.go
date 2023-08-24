@@ -96,6 +96,45 @@ func (handler *krkHandler) GetKrkByKab(c *gin.Context) {
 
 }
 
+func (handler *krkHandler) GetKrkByKecDetail(c *gin.Context) {
+
+	kodeProvinsi := c.Query("kdprov")
+	kodeKabupaten := c.Query("kdkab")
+	kodeKecamatan := c.Query("kdkec")
+
+	// page := convertToInt(c.DefaultQuery("page", "1"), 1)
+	// pageSize := convertToInt(c.DefaultQuery("pageSize", "10"), 10)
+
+	// if pageSize <= 0 || pageSize > 15 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{
+	// 		"error": "Invalid pageSize value. Must be between 1 and 100",
+	// 	})
+	// 	return
+	// }
+
+	// krkes, err := handler.krkService.KrkByKecDetail(kodeProvinsi, kodeKabupaten, kodeKecamatan, page, pageSize)
+	krkes, err := handler.krkService.KrkByKecDetail(kodeProvinsi, kodeKabupaten, kodeKecamatan)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"errors message": err})
+		return
+	}
+
+	var krkesResponse []krk_kab.KrkkabResponse
+
+	for _, f := range krkes {
+		krkResponse := convertToKrkResponse(f)
+		krkesResponse = append(krkesResponse, krkResponse)
+	}
+	response := gin.H{
+		"data": krkesResponse,
+	}
+
+	c.JSON(http.StatusOK, response)
+
+}
+
 func convertToInt(str string, defaultValue int) int {
 	val, err := strconv.Atoi(str)
 	if err != nil {
