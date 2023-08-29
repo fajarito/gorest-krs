@@ -22,5 +22,9 @@ type KrsProvRequest struct {
 	JumlahBukanPesertaKbModern          int
 	JumlahJambanTidakLayak              int
 	JumlahAirTidakLayak                 int
+	JumlahTerlaluBanyak                 int
+	JumlahTerlaluMuda                   int
+	JumlahTerlaluTua                    int
+	JumlahTerlaluDekat                  int
 	JumlahKeluargaTidakBeresikoStunting int
 }

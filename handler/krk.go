@@ -170,6 +170,10 @@ func convertToKrkResponse(f krk_kab.Krk) krk_kab.KrkkabResponse {
 		JumlahBukanPesertaKbModern:          int(f.JumlahBukanPesertaKbModern),
 		JumlahJambanTidakLayak:              int(f.JumlahJambanTidakLayak),
 		JumlahAirTidakLayak:                 int(f.JumlahAirTidakLayak),
+		JumlahTerlaluBanyak:                 int(f.JumlahTerlaluBanyak),
+		JumlahTerlaluMuda:                   int(f.JumlahTerlaluMuda),
+		JumlahTerlaluTua:                    int(f.JumlahTerlaluTua),
+		JumlahTerlaluDekat:                  int(f.JumlahTerlaluDekat),
 		JumlahKeluargaTidakBeresikoStunting: int(f.JumlahKeluargaTidakBeresikoStunting),
 	}
 }

@@ -13,20 +13,24 @@ type KrsProv struct {
 	NamaProvinsi                        string `gorm:"column:nama_provinsi"`
 	JumlahKeluarga                      int64  `gorm:"column:jumlah_keluarga"`
 	JumlahKeluargaSasaran               int64  `gorm:"column:jumlah_keluarga_sasaran"`
-	Prioritas1                          int64  `gorm:"column:peringkat_kesejahteraan_1"`
-	Prioritas2                          int64  `gorm:"column:peringkat_kesejahteraan_2"`
-	Prioritas3                          int64  `gorm:"column:peringkat_kesejahteraan_3"`
-	Prioritas4                          int64  `gorm:"column:peringkat_kesejahteraan_4"`
-	PeringkatKesejahteraanDiatas4       int64  `gorm:"column:peringkat_kesejahteraan_diatas_4"`
-	JumlahKeluargaBeresikoStunting      int64  `gorm:"column:jumlah_keluarga_beresiko_stunting"`
-	JumlahPus                           int64  `gorm:"column:jumlah_pus"`
-	JumlahPusHamil                      int64  `gorm:"column:jumlah_pus_hamil"`
-	JumlahBalita                        int64  `gorm:"column:jumlah_balita"`
-	JumlahBaduta                        int64  `gorm:"column:jumlah_baduta"`
-	JumlahBukanPesertaKbModern          int64  `gorm:"column:jumlah_bukan_peserta_kb_modern"`
-	JumlahJambanTidakLayak              int64  `gorm:"column:jumlah_jamban_tidak_layak"`
-	JumlahAirTidakLayak                 int64  `gorm:"column:jumlah_air_layak_tidak"`
-	JumlahKeluargaTidakBeresikoStunting int64  `gorm:"column:jumlah_keluarga_tidak_beresiko_stunting"`
+	Prioritas1                          int64  `gorm:"column:prioritas_1"`
+	Prioritas2                          int64  `gorm:"column:prioritas_2"`
+	Prioritas3                          int64  `gorm:"column:prioritas_3"`
+	Prioritas4                          int64  `gorm:"column:prioritas_4"`
+	PeringkatKesejahteraanDiatas4       int64  `gorm:"column:bukan_prioritas"`
+	JumlahKeluargaBeresikoStunting      int64  `gorm:"column:jml_klg_resiko_stunting"`
+	JumlahPus                           int64  `gorm:"column:pus"`
+	JumlahPusHamil                      int64  `gorm:"column:pus_hamil"`
+	JumlahBalita                        int64  `gorm:"column:balita"`
+	JumlahBaduta                        int64  `gorm:"column:baduta"`
+	JumlahBukanPesertaKbModern          int64  `gorm:"column:bukan_peserta_kb_modern"`
+	JumlahJambanTidakLayak              int64  `gorm:"column:jamban_layak_tidak"`
+	JumlahAirTidakLayak                 int64  `gorm:"column:sumber_air_layak_tidak"`
+	JumlahTerlaluBanyak                 int64  `gorm:"column:terlalu_banyak"`
+	JumlahTerlaluMuda                   int64  `gorm:"column:terlalu_muda"`
+	JumlahTerlaluTua                    int64  `gorm:"column:terlalu_tua"`
+	JumlahTerlaluDekat                  int64  `gorm:"column:terlalu_dekat"`
+	JumlahKeluargaTidakBeresikoStunting int64  `gorm:"column:tidak_risiko_stunting"`
 }
 
 func (KrsProv) TableName() string {
