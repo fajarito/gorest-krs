@@ -1,0 +1,118 @@
+# FROM --platform=linux/amd64 golang:1.20-alpine3.18
+# WORKDIR /app
+# COPY . .
+# RUN go build -o krs-agg
+# EXPOSE 8081
+# CMD ./krs-agg
+
+# FROM --platform=linux/amd64 registry.access.redhat.com/ubi8/go-toolset:1.19
+
+# WORKDIR /app
+# COPY . .
+# RUN go build -o krs-agg
+# EXPOSE 8081
+# CMD ./krs-agg
+
+# FROM registry.access.redhat.com/ubi8/go-toolset:1.19 AS builder
+
+# WORKDIR /app
+# COPY . .
+# RUN go build -o krs-agg
+
+# FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+
+# WORKDIR /app
+# COPY --from=builder /app/krs-agg .
+# EXPOSE 8081
+# CMD ["./krs-agg"]
+
+# FROM registry.access.redhat.com/ubi8/go-toolset:1.19 as build
+# COPY . .
+
+# RUN go mod init gorest_krs && \
+#     go mod tidy && \
+#     go build .
+
+# FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+# COPY --from=build /opt/app-root/src/my_app .
+# CMD ./my_app
+
+# Use a Red Hat Universal Base Image (UBI) for Go as the base image
+# FROM registry.access.redhat.com/ubi8/go-toolset:1.17 AS builder
+
+# WORKDIR /app
+
+# # Copy the go.mod and go.sum files to download dependencies
+# COPY go.mod go.sum ./
+
+# # Download and cache Go dependencies
+# RUN go mod download
+
+# # Copy the rest of the application code into the container
+# COPY . .
+
+# # Build the Go application
+# RUN go build -v -o krs-agg
+
+# # Create the final image using UBI minimal base image
+# FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+
+# WORKDIR /app
+
+# # Copy the built application from the builder stage
+# COPY --from=builder /app/krs-agg .
+
+# # Expose the port that the application will listen on
+# EXPOSE 8080
+
+# # Define the command to run when the container starts
+# CMD ["./krs-agg"]
+
+# -------------------------------#
+
+FROM quay.io/rh-osbs/ubi8-s2i-base:1-462@sha256:d4ee67728d7a46f90e42c8cebb2193db696ff1c4a182a595c634963944093504
+
+ENV NAME=golang \
+    GO_MAJOR_VERSION=1 \
+    GO_MINOR_VERSION=19 \
+    GO_PATCH_VERSION=10 \
+    CONTAINER_NAME="rhel8/go-toolset"
+
+# Define the VERSION environment variable in a separate step, so we can
+# re-use the GO_MAJOR_VERSION, GO_MINOR_VERSION and GO_PATCH_VERSION variables. 
+ENV VERSION=$GO_MAJOR_VERSION.$GO_MINOR_VERSION.$GO_PATCH_VERSION \
+    SUMMARY="Platform for building and running Go Applications" \
+    DESCRIPTION="Go Toolset available as a container is a base platform for \
+building and running various Go applications and frameworks. \
+Go is an easy to learn, powerful, statically typed language in the C/C++ \
+tradition with garbage collection, concurrent programming support, and memory safety features."
+
+# hadolint ignore=DL3048
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="Go $VERSION" \
+      io.openshift.tags="builder,golang,golang${GO_MAJOR_VERSION}${GO_MINOR_VERSION},rh-golang${GO_MAJOR_VERSION}${GO_MINOR_VERSION},go" \
+      com.redhat.component="go-toolset-container" \
+      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI" \
+      name="$CONTAINER_NAME" \
+      version="$VERSION"
+
+# hadolint ignore=DL3033
+RUN INSTALL_PKGS="go-toolset" && \
+    yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+    rpm -V $INSTALL_PKGS && \
+    yum clean all -y
+
+# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
+COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+
+COPY ./root/ /
+
+RUN chown -R 1001:0 "$STI_SCRIPTS_PATH" && chown -R 1001:0 "$APP_ROOT"
+
+USER 1001
+
+# Set the default CMD to print the usage of the language image.
+# hadolint ignore=DL3025
+CMD "$STI_SCRIPTS_PATH/usage"

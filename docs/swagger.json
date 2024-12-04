@@ -15,7 +15,7 @@
         },
         "version": "2.1"
     },
-    "host": "gorest-2022-krs-ds-bkkbn-2022-gorest-krs.apps.ocp-dev.bkkbn.go.id",
+    "host": "gorest-2022-krs-ds-bkkbn-2022-krs-agg.apps.ocp-dev.bkkbn.go.id",
     "basePath": "/v1/api",
     "paths": {
         "/krsbykab": {

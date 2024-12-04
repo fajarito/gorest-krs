@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"gorest-krs/handler"
-	krk "gorest-krs/krk_kab"
-	krs "gorest-krs/krs_kec"
-	krs_nas "gorest-krs/krs_nas"
-	krs_prov "gorest-krs/krs_prov"
+	"krs-agg/handler"
+	krs_kabupaten "krs-agg/krs_kabupaten"
+	krs_kecamatan "krs-agg/krs_kecamatan"
+	krs_kelurahan "krs-agg/krs_kelurahan"
+	krs_provinsi "krs-agg/krs_provinsi"
 	"log"
 	"os"
 
 	"github.com/gin-contrib/cors"
 	pagination "github.com/webstradev/gin-pagination"
 
-	_ "gorest-krs/docs"
+	_ "krs-agg/docs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -34,7 +34,7 @@ import (
 // @contact.email  dittifdok@bkkbn.go.id
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-// @host      gorest-2022-krs-ds-bkkbn-2022-gorest-krs.apps.ocp-dev.bkkbn.go.id
+// @host      gorest-2022-krs-ds-bkkbn-2022-krs-agg.apps.ocp-dev.bkkbn.go.id
 // @BasePath  /v1/api
 func main() {
 	err := godotenv.Load()
@@ -48,7 +48,6 @@ func main() {
 	db_username := os.Getenv("DB_USERNAME")
 	db_password := os.Getenv("DB_PASSWORD")
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai", db_host, db_username, db_password, db_database, db_port)
-	// dsn := "host=36.37.120.165 user=usr_bkkbn password=bkkbn$1 dbname=BKKBN port=5435 sslmode=disable TimeZone=Asia/Shanghai"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
@@ -61,21 +60,31 @@ func main() {
 		log.Fatal("DB Connection Error")
 	}
 
-	krsRepository := krs.NewRepository(db)
-	krsService := krs.NewService(krsRepository)
-	krsHandler := handler.NewKrsHandler(krsService)
-	krsProvRepository := krs_prov.NewRepository(db)
-	krsProvService := krs_prov.NewService(krsProvRepository)
+	//------------------------ Start - Handler Kelurahan ------------------------//
+	krsKelRepository := krs_kelurahan.NewRepository(db)
+	krsKelService := krs_kelurahan.NewService(krsKelRepository)
+	krsKelHandler := handler.NewKrsKelHandler(krsKelService)
+	//------------------------ End - Handler Kelurahan ------------------------//
+
+	//------------------------ Start - Handler Kecamatan ------------------------//
+	krsKecRepository := krs_kecamatan.NewRepository(db)
+	krsKecService := krs_kecamatan.NewService(krsKecRepository)
+	krsKecHandler := handler.NewKrsKecHandler(krsKecService)
+	//------------------------ End - Handler Kecamatan ------------------------//
+
+	//------------------------ Start - Handler Kabupaten ------------------------//
+	krsKabRepository := krs_kabupaten.NewRepository(db)
+	krsKabService := krs_kabupaten.NewService(krsKabRepository)
+	krsKabHandler := handler.NewKrsKabHandler(krsKabService)
+	//------------------------ Start - Handler Kabupaten ------------------------//
+
+	//------------------------ Start - Handler Provinsi ------------------------//
+	krsProvRepository := krs_provinsi.NewRepository(db)
+	krsProvService := krs_provinsi.NewService(krsProvRepository)
 	krsProvHandler := handler.NewKrsProvHandler(krsProvService)
-	krsNasRepository := krs_nas.NewRepository(db)
-	krsNasService := krs_nas.NewService(krsNasRepository)
-	krsNasHandler := handler.NewKrsNasHandler(krsNasService)
-	krkRepository := krk.NewRepository(db)
-	krkService := krk.NewService(krkRepository)
+	//------------------------ Start - Handler Provinsi ------------------------//
 
-	krkHandler := handler.NewKrkHandler(krkService)
-
-	fmt.Println("==================v3==================v3==================v3==================v")
+	fmt.Println("================== Start Engine for KRS-AGG -- V4 ==================")
 
 	r := gin.Default()
 
@@ -94,15 +103,37 @@ func main() {
 
 	r.Use(pagination.Default())
 
-	v3 := r.Group("/v1/api")
-	v3.GET("/krsbykeldetail", krsHandler.GetKrsByKelDetail)
-	v3.GET("/krsbykec", krsHandler.GetKrsByKec)
-	v3.GET("/krsbykecdetail", krkHandler.GetKrkByKecDetail)
-	v3.GET("/krsbykab", krkHandler.GetKrkByKab)
-	v3.GET("/krsbykabdetail", krsProvHandler.GetKrsByKabDetail)
-	v3.GET("/krsbyprov", krsProvHandler.GetKrsByProv)
-	v3.GET("/krsbyprovdetail", krsNasHandler.GetKrsByProvDetail)
-	v3.GET("/krsbynas", krsNasHandler.GetKrsByNas)
+	v4 := r.Group("/v4/api")
+
+	//------------------------ Start - Level Kelurahan ------------------------//
+	v4.GET("/rekapkrs/all/kelurahan/:periode", krsKelHandler.GetKrsAllByKel)
+	v4.GET("/rekapkrs/kel/provinsi/:periode/:kdprov", krsKelHandler.GetKrsByProv)
+	v4.GET("/rekapkrs/kel/kabupaten/:periode/:kdprov/:kdkab", krsKelHandler.GetKrsByKab)
+	v4.GET("/rekapkrs/kel/kecamatan/:periode/:kdprov/:kdkab/:kdkec", krsKelHandler.GetKrsByKec)
+	v4.GET("/rekapkrs/kel/kelurahan/:periode/:kdprov/:kdkab/:kdkec/:kdkel", krsKelHandler.GetKrsKelById)
+	//------------------------ End - Level Kelurahan ------------------------//
+
+	//------------------------ Start - Level Kecamatan ------------------------//
+	v4.GET("/rekapkrs/all/kecamatan/:periode", krsKecHandler.GetKrsAllByKec)
+	v4.GET("/rekapkrs/kec/kabupaten/:periode/:kdprov/:kdkab", krsKecHandler.GetKrsByKab)
+	v4.GET("/rekapkrs/kec/kecamatan/:periode/:kdprov/:kdkab/:kdkec", krsKecHandler.GetKrsKecById)
+	//------------------------ End - Level Kecamatan ------------------------//
+
+	//------------------------ Start - Level Kabupaten ------------------------//
+	v4.GET("/rekapkrs/all/kabupaten/:periode", krsKabHandler.GetKrsAllByKab)
+	v4.GET("/rekapkrs/kab/kabupaten/:periode/:kdprov", krsKabHandler.GetKrsByProv)
+	v4.GET("/rekapkrs/kab/kabupaten/:periode/:kdprov/:kdkab", krsKabHandler.GetKrsKabById)
+	//------------------------ End - Level Kabupaten ------------------------//
+
+	//------------------------ Start - Level Provinsi ------------------------//
+	v4.GET("/rekapkrs/all/provinsi/:periode", krsProvHandler.GetKrsAllByProv)
+	v4.GET("/rekapkrs/prov/provinsi/:periode", krsProvHandler.GetKrsByNas)
+	v4.GET("/rekapkrs/prov/provinsi/:periode/:kdprov", krsProvHandler.GetKrsProvById)
+	//------------------------ End - Level Provinsi ------------------------//
+
+	//------------------------ Start - Swagger ------------------------//
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run(":8081")
+	//------------------------ End - Swagger ------------------------//
+
+	r.Run(":8080")
 }

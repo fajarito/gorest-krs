@@ -200,7 +200,7 @@ definitions:
       prioritas4:
         type: integer
     type: object
-host: gorest-2022-krs-ds-bkkbn-2022-gorest-krs.apps.ocp-dev.bkkbn.go.id
+host: gorest-2022-krs-ds-bkkbn-2022-krs-agg.apps.ocp-dev.bkkbn.go.id
 info:
   contact:
     email: dittifdok@bkkbn.go.id
